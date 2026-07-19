@@ -357,7 +357,7 @@ function AiImage() {
 }
 
 function App() {
-  const [page, setPage] = useState<AppPage>('dashboard')
+  const [page, setPage] = useState<AppPage>(() => window.location.hash === '#settings' ? 'settings' : 'dashboard')
   const [chatMessages, setChatMessages] = useState<string[]>([])
   const [projects, setProjects] = useState<Project[]>(initialProjects)
   let content: ReactNode

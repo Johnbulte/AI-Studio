@@ -16,8 +16,8 @@ function setup(overrides: Partial<ReturnType<typeof useAuth>> = {}) {
     serverConfig: { baseUrl: 'https://gateway.example.com', chatModel: 'gpt-4o-mini' },
     login: vi.fn(),
     previewLogin: vi.fn(),
-    logout: vi.fn(),
-    saveServerConfig: vi.fn().mockResolvedValue({ baseUrl: 'https://gateway.example.com', chatModel: 'gpt-4o-mini' }),
+    logout: vi.fn().mockResolvedValue(undefined),
+    saveServerConfig: vi.fn(),
     testConnection: vi.fn().mockResolvedValue(undefined),
     clearError: vi.fn(),
     ...overrides,
@@ -29,33 +29,44 @@ function setup(overrides: Partial<ReturnType<typeof useAuth>> = {}) {
 describe('SettingsPage', () => {
   beforeEach(() => {
     cleanup()
+    window.localStorage.clear()
     mockedUseAuth.mockReset()
   })
 
-  it('saves the service configuration and shows success feedback', async () => {
-    const auth = setup()
-    render(<SettingsPage onBack={vi.fn()} />)
-    fireEvent.change(screen.getByLabelText('服务地址'), { target: { value: 'https://new-gateway.example.com' } })
-    fireEvent.click(screen.getByRole('button', { name: '保存配置' }))
-    await waitFor(() => expect(auth.saveServerConfig).toHaveBeenCalledWith({ baseUrl: 'https://new-gateway.example.com', chatModel: 'gpt-4o-mini' }))
-    expect(await screen.findByRole('status')).toHaveTextContent('配置已保存')
-  })
-
-  it('keeps connection errors separate from save feedback', async () => {
-    const auth = setup({ testConnection: vi.fn().mockRejectedValue({ code: 'rate_limited', message: '请求太频繁，请稍后再试', retryable: true }) })
-    render(<SettingsPage onBack={vi.fn()} />)
-    fireEvent.click(screen.getByRole('button', { name: '测试连接' }))
-    await waitFor(() => expect(auth.testConnection).toHaveBeenCalled())
-    expect(await screen.findByRole('alert')).toHaveTextContent('请求太频繁，请稍后再试')
-  })
-
-  it('shows the Duomi media API configuration form and keeps the key out of feedback', async () => {
+  it('uses generic settings copy without exposing provider details', () => {
     setup()
     render(<SettingsPage onBack={vi.fn()} />)
-    fireEvent.change(screen.getByLabelText('多米 API Key'), { target: { value: 'duomi-secret' } })
-    fireEvent.click(screen.getByRole('button', { name: '保存多米配置' }))
-    expect(await screen.findByRole('status')).toHaveTextContent('多米 API 配置已保存')
-    expect(screen.queryByText('duomi-secret')).not.toBeInTheDocument()
-    expect(screen.getByLabelText('多米 API Key')).toHaveValue('')
+    expect(screen.getByRole('heading', { name: '设置' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'AI 工作区' })).toBeInTheDocument()
+    expect(screen.queryByText(/多米|API/)).not.toBeInTheDocument()
+    expect(screen.queryByLabelText(/API|服务地址|聊天模型/)).not.toBeInTheDocument()
+  })
+
+  it('checks the hidden connection and shows generic success feedback', async () => {
+    const auth = setup()
+    render(<SettingsPage onBack={vi.fn()} />)
+    fireEvent.click(screen.getByRole('button', { name: '检查连接' }))
+    await waitFor(() => expect(auth.testConnection).toHaveBeenCalled())
+    expect(await screen.findByRole('status')).toHaveTextContent('连接正常')
+  })
+
+  it('keeps provider error details out of the visible feedback', async () => {
+    const auth = setup({ testConnection: vi.fn().mockRejectedValue({ code: 'rate_limited', message: 'provider.example.com: too many requests', retryable: true }) })
+    render(<SettingsPage onBack={vi.fn()} />)
+    fireEvent.click(screen.getByRole('button', { name: '检查连接' }))
+    await waitFor(() => expect(auth.testConnection).toHaveBeenCalled())
+    expect(await screen.findByRole('alert')).toHaveTextContent('服务繁忙，请稍后重试')
+    expect(screen.queryByText(/provider\.example\.com|too many requests/)).not.toBeInTheDocument()
+  })
+
+  it('toggles preferences and saves them locally', async () => {
+    setup()
+    render(<SettingsPage onBack={vi.fn()} />)
+    const toggle = await screen.findByRole('switch', { name: /恢复上次工作区/ })
+    expect(toggle).toHaveAttribute('aria-checked', 'true')
+    fireEvent.click(toggle)
+    expect(toggle).toHaveAttribute('aria-checked', 'false')
+    expect(await screen.findByRole('status')).toHaveTextContent('偏好已更新')
+    expect(window.localStorage.getItem('ai-studio-preferences')).toContain('"restoreWorkspace":false')
   })
 })
