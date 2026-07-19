@@ -50,6 +50,13 @@ describe('AI Studio OS Figma 26:773 creation dashboard', () => {
     expect(screen.getByTestId('ai-chat-workspace')).toBeInTheDocument()
   })
 
+  it('opens settings from the primary navigation', () => {
+    render(<App />)
+    const navigation = within(screen.getByRole('navigation', { name: '主导航' }))
+    fireEvent.click(navigation.getByRole('button', { name: '设置' }))
+    expect(screen.getByRole('heading', { name: '设置' })).toBeInTheDocument()
+  })
+
   it('starts a conversation from the dashboard prompt', () => {
     render(<App />)
     const prompt = screen.getByRole('textbox', { name: '今天想创作什么？' })

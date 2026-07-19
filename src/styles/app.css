@@ -350,6 +350,7 @@ button { cursor: pointer; }
 }
 
 .chat-nav-button.starts-secondary { margin-top: 20px; }
+.chat-nav-button.starts-settings { margin-top: 18px; }
 .chat-nav-button img { width: 18px; height: 18px; opacity: .8; }
 .chat-nav-button.is-active { background: rgb(124 58 237 / 15%); color: #fff !important; }
 .chat-nav-button.is-active img { opacity: 1; }

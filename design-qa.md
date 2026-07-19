@@ -26,6 +26,7 @@
 
 - Toggled “生成完成提醒”: `aria-checked` changed from `true` to `false`, and “偏好已更新” appeared.
 - Clicked “检查连接”: “连接正常” appeared; provider error details are mapped to generic feedback before rendering.
+- Clicked the new primary-navigation “设置” button from the dashboard; the settings page opened and the button became active.
 - Browser console errors: none reported.
 
 ## Comparison history
@@ -34,10 +35,11 @@
 2. Replaced that card with a generic AI workspace status card and a preference card; kept account/logout behavior.
 3. Added local preference persistence and a generic connection-check feedback path.
 4. Captured a new implementation screenshot and combined comparison after the changes; no actionable P0/P1/P2 visual differences remain.
+5. Added a primary-navigation settings entry so the screen remains reachable when the compact sidebar hides account actions; captured updated evidence.
 
 ## Verification evidence
 
-- `npm test`: 14 test files, 78 tests passed.
+- `npm test`: 14 test files, 79 tests passed.
 - `npm run typecheck`: passed.
 - `npm run build`: passed.
 - `cargo test --manifest-path src-tauri/Cargo.toml`: 24 passed, 0 failed.

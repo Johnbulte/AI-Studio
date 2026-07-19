@@ -9,6 +9,7 @@ const sidebarItems = [
   ['素材库', 'nav-library.svg'],
   ['项目', 'nav-projects.svg'],
   ['会员', 'nav-membership.svg'],
+  ['设置', 'settings.svg'],
 ] as const
 
 function BrandMark() {
@@ -31,15 +32,16 @@ export function AppSidebar({ active, onNavigate, onSettings, accountName }: { ac
         {sidebarItems.map(([label, icon], index) => {
           const isActive = label === active
           const isUnavailable = label === '素材库'
+          const isSettings = label === '设置'
           return (
             <button
-              className={`chat-nav-button ${isActive ? 'is-active' : ''} ${index === 5 ? 'starts-secondary' : ''}`}
+              className={`chat-nav-button ${isActive ? 'is-active' : ''} ${index === 5 ? 'starts-secondary' : ''} ${isSettings ? 'starts-settings' : ''}`}
               aria-current={isActive ? 'page' : undefined}
               aria-pressed={isActive}
               disabled={isUnavailable}
               title={isUnavailable ? `${label}（即将开放）` : label}
               key={label}
-              onClick={() => onNavigate(label)}
+              onClick={() => isSettings ? onSettings() : onNavigate(label)}
               type="button"
             >
               <img src={`/figma/dashboard/${icon}`} alt="" />
