@@ -1,0 +1,17 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icon" clip-path="url(#clip0_0_6)">
+<path id="Vector" d="M10.18 1.18L10.82 1.82C10.8775 1.87591 10.9231 1.94277 10.9543 2.01662C10.9855 2.09048 11.0016 2.16983 11.0016 2.25C11.0016 2.33017 10.9855 2.40952 10.9543 2.48338C10.9231 2.55723 10.8775 2.62409 10.82 2.68L2.68 10.82C2.62409 10.8775 2.55723 10.9231 2.48338 10.9543C2.40952 10.9855 2.33017 11.0016 2.25 11.0016C2.16983 11.0016 2.09048 10.9855 2.01662 10.9543C1.94277 10.9231 1.87591 10.8775 1.82 10.82L1.18 10.18C1.12316 10.1237 1.07803 10.0568 1.04724 9.98296C1.01644 9.90916 1.00059 9.82998 1.00059 9.75C1.00059 9.67003 1.01644 9.59084 1.04724 9.51704C1.07803 9.44323 1.12316 9.37626 1.18 9.32L9.32 1.18C9.37626 1.12316 9.44323 1.07803 9.51704 1.04724C9.59084 1.01644 9.67003 1.00059 9.75 1.00059C9.82998 1.00059 9.90916 1.01644 9.98296 1.04724C10.0568 1.07803 10.1237 1.12316 10.18 1.18Z" stroke="var(--stroke-0, #7C3AED)" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M7 3.5L8.5 5" stroke="var(--stroke-0, #7C3AED)" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M2.5 3V5" stroke="var(--stroke-0, #7C3AED)" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" d="M9.5 7V9" stroke="var(--stroke-0, #7C3AED)" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_5" d="M5 1V2" stroke="var(--stroke-0, #7C3AED)" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_6" d="M3.5 4H1.5" stroke="var(--stroke-0, #7C3AED)" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_7" d="M10.5 8H8.5" stroke="var(--stroke-0, #7C3AED)" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_8" d="M5.5 1.5H4.5" stroke="var(--stroke-0, #7C3AED)" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_0_6">
+<rect width="12" height="12" fill="white"/>
+</clipPath>
+</defs>
+</svg>
